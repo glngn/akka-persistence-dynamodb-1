@@ -21,7 +21,7 @@ import akka.actor.ActorRef
 import akka.persistence.dynamodb.{ DynamoDBConfig, Item }
 
 case class LatencyReport(nanos: Long, retries: Int)
-private class RetryStateHolder(var retries: Int = 10, var backoff: FiniteDuration = 1.millis)
+private class RetryStateHolder(var retries: Int = 10, var backoff: FiniteDuration = 500.millis)
 
 trait DynamoDBHelper {
 
