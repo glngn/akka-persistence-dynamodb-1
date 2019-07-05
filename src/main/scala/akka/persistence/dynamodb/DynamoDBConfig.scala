@@ -7,7 +7,7 @@ import java.net.InetAddress
 
 import akka.persistence.dynamodb.journal.DynamoDBHelper
 import akka.serialization.Serialization
-import com.amazonaws.{ ClientConfiguration, Protocol }
+import com.amazonaws.{ ClientConfiguration, PredefinedClientConfigurations, Protocol }
 import com.typesafe.config.Config
 
 trait ClientConfig {
@@ -40,7 +40,7 @@ class DynamoDBClientConfig(c: Config) extends ClientConfig {
 
   private var foundSettings = List.empty[String]
   override lazy val toString: String = foundSettings.reverse.mkString("{", ",", "}")
-  val config = new ClientConfiguration
+  val config = PredefinedClientConfigurations.dynamoDefault()
 
   get("client-execution-timeout", _.getInt(_), config.setClientExecutionTimeout)
   get("connection-max-idle-millis", _.getLong(_), config.setConnectionMaxIdleMillis)
