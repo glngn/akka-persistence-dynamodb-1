@@ -56,7 +56,7 @@ package object dynamodb {
     val client =
       if (settings.AwsKey.nonEmpty && settings.AwsSecret.nonEmpty) {
         val conns = settings.client.config.getMaxConnections
-        val executor = Executors.newFixedThreadPool(conns)
+        val executor = Executors.newFixedThreadPool(conns.max(2))
         val creds = new BasicAWSCredentials(settings.AwsKey, settings.AwsSecret)
         new AmazonDynamoDBAsyncClient(creds, settings.client.config, executor)
       } else {
